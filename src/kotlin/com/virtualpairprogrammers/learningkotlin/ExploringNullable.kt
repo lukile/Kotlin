@@ -12,13 +12,13 @@ fun main(args: Array<String>) {
     var address = null
 
     //Error because we can't reassign type to a variable of type "Nothing"
-    address = "Hello"
+    //address = "Hello"
 
     //Even if it's not explicitly typed, it considers "7" value is Int type
     var myIntger = 7
 
     //Not possible for the reason mentionned before
-    myIntger = null
+    //myIntger = null
 
 
 
