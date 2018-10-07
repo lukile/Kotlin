@@ -1,7 +1,8 @@
 package com.virtualpairprogrammers.learningkotlin
 
 // This way it determines class, constructor and accessor with this simple way
-class Customer (val name: String,
+// "data" provides another method out of the box more than only getters and setters
+data class Customer (val name: String,
                 val address: String,
                 var age: Int) {
 
@@ -33,6 +34,22 @@ class AnotherAlternativeCustomer (val name: String,  var age: Int, val address: 
             println("You can't approved a customer under 21 years old")
         }
     }
+    val nextAge
+    get() = age + 1
+
+    fun toUpperCaseName() = name.toUpperCase()
+
+    override fun toString() = "$name, $age, $address"
+
+    // Static method in Kotlin
+    companion object {
+        fun getInstance() = AnotherAlternativeCustomer("Sylvanas", 45, "Fossoyeuse")
+    }
+
+    // Make variables name and age assignable in destructuring way
+    operator fun component1() = name
+    operator fun component2() = age
+
 }
 
 
@@ -46,4 +63,24 @@ fun main(args: Array<String>) {
 
     println("${customer.name} is ${customer.age} years old and is ${customer.approved}")
     println("${customer2.name} is ${customer2.age} years old and is ${customer2.approved}")
+    println("Next year ${customer.toUpperCaseName()} will be ${customer.nextAge}")
+
+    println("$customer")
+
+    val customer3 = AnotherAlternativeCustomer.getInstance()
+    println(customer3)
+
+    val customer4 = Customer("Alleria", 22)
+    println(customer4)
+    // "copy" only allowed because class is a data class, can change values we want to and copy the rest
+    val customer5 = customer4.copy(name="Vereesa")
+    println(customer5)
+
+    // destructuring, creating and assigning multiple variables to the field within an object
+    val(name, address, age)  = customer5
+    println(age)
+    // destrucring -> operator component
+    val (name2, age2) = customer
+    println(name2)
+
 }
